@@ -1,2 +1,8 @@
 content-service:
   port: PORT
+
+services:
+  subscription-service:
+    url: http://localhost:8082
+  user-service:
+    url: http://localhost:8081

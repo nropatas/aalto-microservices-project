@@ -1,2 +1,8 @@
 content-service:
   port: 8083
+
+services:
+  subscription-service:
+    url: SUBSCRIPTION_SERVICE_URL
+  user-service:
+    url: USER_SERVICE_URL
