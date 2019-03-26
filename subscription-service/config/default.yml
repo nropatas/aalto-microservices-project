@@ -1,0 +1,6 @@
+subscription-service:
+  port: 8082
+
+services:
+  user-service:
+    url: http://localhost:8081

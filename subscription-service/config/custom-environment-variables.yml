@@ -1,0 +1,6 @@
+subscription-service:
+  port: PORT
+
+services:
+  user-service:
+    url: USER_SERVICE_URL
