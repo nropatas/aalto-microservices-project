@@ -1,0 +1,5 @@
+user-service:
+  port: PORT
+  
+  auth-token:
+    secret: AUTH_TOKEN_SECRET
