@@ -11,12 +11,12 @@ router.get('/health', (req, res) => {
 });
 
 router.post('/api/subscriptions', [userValidation], (req, res) => {
-    if (!_.isEmpty(req.user)) {
-        res.status(HTTP.CREATED).end();
+    if (_.isEmpty(req.user)) {
+        res.status(HTTP.INTERNAL_SERVER_ERROR).end();
         return;
     }
 
-    res.status(HTTP.INTERNAL_SERVER_ERROR).end();
+    res.status(HTTP.CREATED).end();
 });
 
 module.exports = router;
