@@ -1,10 +1,10 @@
 const express = require('express');
+const HTTP = require('http-status');
 
 const router = express.Router();
 
-/* GET home page. */
-router.get('/', (req, res) => {
-    res.render('index', { title: 'Express' });
+router.get('/health', (req, res) => {
+    res.status(HTTP.OK).end();
 });
 
 module.exports = router;
