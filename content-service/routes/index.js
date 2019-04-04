@@ -1,7 +1,11 @@
+const _ = require('lodash');
+const axios = require('axios');
 const common = require('common');
 const config = require('config');
 const express = require('express');
 const HTTP = require('http-status');
+
+const { Providers } = require('../lib/mock-data');
 
 const { createUserValidation } = common.middleware;
 
@@ -13,10 +17,39 @@ router.get('/health', (req, res) => {
 
 router.get('/api/contents', [
     createUserValidation({ userServiceUrl: config.get('services.user-service.url') }),
-], (req, res) => {
-    // TODO: Get list of subscriptions from subscription-service
+], async (req, res) => {
+    const userId = _.get(req, 'user.id');
 
-    // TODO: Get contents from APIs
+    if (!userId) {
+        res.status(HTTP.INTERNAL_SERVER_ERROR).end();
+        return;
+    }
+
+    let response;
+    try {
+        response = await axios.request({
+            method: 'get',
+            url: `${config.get('services.subscription-service.url')}/api/subscriptions?userId=${userId}`,
+        });
+    } catch (err) {
+        res.status(HTTP.INTERNAL_SERVER_ERROR).end();
+        return;
+    }
+
+    const { providerIds } = response.data;
+    const contents = _.flatMap(providerIds, (providerId) => {
+        if (!_.has(Providers, providerId)) {
+            return [];
+        }
+
+        const provider = Providers[providerId];
+        console.log(`Req: ${provider.apiUrl}, Key: ${provider.apiKey}`);
+        return provider.data;
+    });
+
+    res.json({
+        contents,
+    });
 });
 
 module.exports = router;
