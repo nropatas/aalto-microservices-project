@@ -1,8 +1,16 @@
 content-service:
   port: PORT
 
+  providers:
+    bbc:
+      api-url: BBC_API_URL
+      api-key: BBC_API_KEY
+    buzzfeed:
+      api-url: BUZZFEED_API_URL
+      api-key: BUZZFEED_API_KEY
+
 services:
   subscription-service:
-    url: http://localhost:8082
+    url: SUBSCRIPTION_SERVICE_URL
   user-service:
-    url: http://localhost:8081
+    url: USER_SERVICE_URL
