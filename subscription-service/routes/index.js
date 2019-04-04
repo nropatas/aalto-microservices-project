@@ -1,9 +1,12 @@
 const _ = require('lodash');
+const common = require('common');
+const config = require('config');
 const express = require('express');
 const HTTP = require('http-status');
 
 const { UserSubscriptions } = require('../lib/mock-data');
-const userValidation = require('../middleware/user-validation');
+
+const { createUserValidation } = common.middleware;
 
 const router = express.Router();
 
@@ -11,7 +14,9 @@ router.get('/health', (req, res) => {
     res.status(HTTP.OK).end();
 });
 
-router.post('/api/subscriptions', [userValidation], (req, res) => {
+router.post('/api/subscriptions', [
+    createUserValidation({ userServiceUrl: config.get('services.user-service.url') }),
+], (req, res) => {
     if (_.isEmpty(req.user)) {
         res.status(HTTP.INTERNAL_SERVER_ERROR).end();
         return;
