@@ -21,6 +21,9 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 8080
+        env:
+        - name: PORT
+          value: '8080'
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -45,6 +48,9 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 8080
+        env:
+        - name: PORT
+          value: '8080'
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -69,3 +75,6 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 8080
+        env:
+        - name: PORT
+          value: '8080'
