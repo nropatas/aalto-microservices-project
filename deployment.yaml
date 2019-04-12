@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+  labels:
+    app: user-service
+  namespace: microproj-sataponn
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+      - name: user-service
+        image: user-service
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: subscription-service
+  labels:
+    app: subscription-service
+  namespace: microproj-sataponn
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: subscription-service
+  template:
+    metadata:
+      labels:
+        app: subscription-service
+    spec:
+      containers:
+      - name: subscription-service
+        image: subscription-service
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: content-service
+  labels:
+    app: content-service
+  namespace: microproj-sataponn
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: content-service
+  template:
+    metadata:
+      labels:
+        app: content-service
+    spec:
+      containers:
+      - name: content-service
+        image: content-service
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080

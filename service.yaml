@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+  namespace: microproj-sataponn
+spec:
+  selector:
+    app: user-service
+  ports:
+  - port: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: subscription-service
+  namespace: microproj-sataponn
+spec:
+  selector:
+    app: subscription-service
+  ports:
+  - port: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: content-service
+  namespace: microproj-sataponn
+spec:
+  selector:
+    app: content-service
+  ports:
+  - port: 8080
