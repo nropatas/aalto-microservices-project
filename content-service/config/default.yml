@@ -1,5 +1,5 @@
 content-service:
-  port: 8083
+  port: 8080
 
   providers:
     bbc:
