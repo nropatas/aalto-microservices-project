@@ -1,6 +1,19 @@
 apiVersion: v1
 kind: Service
 metadata:
+  name: ambassador
+  namespace: microproj-sataponn
+spec:
+  type: LoadBalancer
+  selector:
+    app: ambassador
+  ports:
+  - port: 8080
+    targetPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
   name: user-service
   namespace: microproj-sataponn
 spec:
@@ -14,6 +27,14 @@ kind: Service
 metadata:
   name: subscription-service
   namespace: microproj-sataponn
+  annotations:
+    getambassador.io/config: |
+      ---
+      apiVersion: ambassador/v1
+      kind: Mapping
+      name: subscription-service
+      prefix: /api/subscriptions
+      service: subscription-service:8080
 spec:
   selector:
     app: subscription-service
@@ -25,6 +46,14 @@ kind: Service
 metadata:
   name: content-service
   namespace: microproj-sataponn
+  annotations:
+    getambassador.io/config: |
+      ---
+      apiVersion: ambassador/v1
+      kind: Mapping
+      name: content-service
+      prefix: /api/contents
+      service: content-service:8080
 spec:
   selector:
     app: content-service
