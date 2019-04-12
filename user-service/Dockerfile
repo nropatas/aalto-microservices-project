@@ -1,8 +1,7 @@
 FROM node:10-alpine
 
 WORKDIR /usr/src/app
-COPY . .
-
+COPY ./user-service .
 RUN npm install
 
 EXPOSE 8080

@@ -1,8 +1,10 @@
 FROM node:10-alpine
 
-WORKDIR /usr/src/app
-COPY . .
+RUN mkdir -p /usr/src/common
+COPY ./common /usr/src/common
 
+WORKDIR /usr/src/app
+COPY ./subscription-service .
 RUN npm install
 
 EXPOSE 8080

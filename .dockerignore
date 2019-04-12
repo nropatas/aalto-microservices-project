@@ -1,0 +1,10 @@
+*/node_modules
+*/scripts
+
+README.md
+*/npm-debug.log
+*/package-lock.json
+*/Dockerfile
+.dockerignore
+.git
+.gitignore
