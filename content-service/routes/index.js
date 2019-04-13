@@ -32,6 +32,13 @@ router.get('/api/contents', [
             url: `${config.get('services.subscription-service.url')}/api/subscriptions?userId=${userId}`,
         });
     } catch (err) {
+        if (_.get(err, 'response.status') === HTTP.NOT_FOUND) {
+            res.json({
+                contents: [],
+            });
+            return;
+        }
+
         res.status(HTTP.INTERNAL_SERVER_ERROR).end();
         return;
     }

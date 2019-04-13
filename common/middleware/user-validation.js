@@ -19,6 +19,11 @@ module.exports = function createUserValidation({ userServiceUrl }) {
                 },
             });
         } catch (err) {
+            if (_.get(err, 'response.status') === HTTP.UNAUTHORIZED) {
+                res.status(err.response.status).end();
+                return;
+            }
+
             res.status(HTTP.INTERNAL_SERVER_ERROR).end();
             return;
         }
