@@ -1,5 +1,7 @@
 subscription-service:
   port: PORT
+  jaeger:
+    agent-host: JAEGER_AGENT_HOST
 
 services:
   user-service:

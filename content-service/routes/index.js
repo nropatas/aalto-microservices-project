@@ -9,6 +9,8 @@ const { Providers } = require('../lib/mock-data');
 
 const { createUserValidation } = common.middleware;
 
+const TRACE_ID_KEY = 'uber-trace-id';
+
 const router = express.Router();
 
 router.get('/health', (req, res) => {
@@ -30,6 +32,9 @@ router.get('/api/contents', [
         response = await axios.request({
             method: 'get',
             url: `${config.get('services.subscription-service.url')}/api/subscriptions?userId=${userId}`,
+            headers: {
+                [TRACE_ID_KEY]: req.get(TRACE_ID_KEY),
+            },
         });
     } catch (err) {
         if (_.get(err, 'response.status') === HTTP.NOT_FOUND) {

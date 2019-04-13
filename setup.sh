@@ -9,6 +9,11 @@ docker build -f content-service/Dockerfile -t content-service .
 
 # Run Kubernetes
 echo "Setting up Kubernetes cluster..."
+
+# Jaeger for distributed tracing
+kubectl apply -f https://raw.githubusercontent.com/jaegertracing/jaeger-kubernetes/master/all-in-one/jaeger-all-in-one-template.yml
+
+# Microservices
 kubectl apply -f namespace.yaml
 kubectl apply -f secret.yaml
 kubectl apply -f deployment.yaml
