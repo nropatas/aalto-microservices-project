@@ -1,0 +1,8 @@
+api-gateway:
+  port: PORT
+
+services:
+  content-service:
+    url: CONTENT_SERVICE_URL
+  subscription-service:
+    url: SUBSCRIPTION_SERVICE_URL
