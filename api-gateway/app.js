@@ -8,7 +8,7 @@ const path = require('path');
 const indexRouter = require('./routes/index');
 
 const app = express();
-const proxy = httpProxy.createProxyServer();
+const proxy = httpProxy.createProxyServer({});
 
 app.use(logger('dev'));
 app.use(express.json());

@@ -1,6 +1,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: api-gateway
+  labels:
+    app: api-gateway
+  namespace: microproj-sataponn
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+    spec:
+      containers:
+      - name: api-gateway
+        image: api-gateway
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+        env:
+        - name: PORT
+          value: '8080'
+        - name: CONTENT_SERVICE_URL
+          value: http://content-service:8080
+        - name: SUBSCRIPTION_SERVICE_URL
+          value: http://subscription-service:8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
   name: user-service
   labels:
     app: user-service
@@ -52,7 +83,7 @@ spec:
         - name: PORT
           value: '8080'
         - name: USER_SERVICE_URL
-          value: user-service:8080
+          value: http://user-service:8080
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -81,6 +112,6 @@ spec:
         - name: PORT
           value: '8080'
         - name: USER_SERVICE_URL
-          value: user-service:8080
+          value: http://user-service:8080
         - name: SUBSCRIPTION_SERVICE_URL
-          value: subscription-service:8080
+          value: http://subscription-service:8080
