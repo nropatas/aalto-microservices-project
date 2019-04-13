@@ -55,6 +55,11 @@ spec:
         env:
         - name: PORT
           value: '8080'
+        - name: AUTH_TOKEN_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: user-service-secrets
+              key: auth-token-secret
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -115,3 +120,13 @@ spec:
           value: http://user-service:8080
         - name: SUBSCRIPTION_SERVICE_URL
           value: http://subscription-service:8080
+        - name: BBC_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: content-service-secrets
+              key: bbc-api-key
+        - name: BUZZFEED_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: content-service-secrets
+              key: buzzfeed-api-key
