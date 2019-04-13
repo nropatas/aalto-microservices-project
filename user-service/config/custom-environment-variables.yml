@@ -1,5 +1,7 @@
 user-service:
   port: PORT
+  jaeger:
+    agent-host: JAEGER_AGENT_HOST
   
   auth-token:
     secret: AUTH_TOKEN_SECRET

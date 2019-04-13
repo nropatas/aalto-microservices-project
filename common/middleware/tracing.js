@@ -14,7 +14,7 @@ module.exports = function createTracing(tracer) {
         tracer.inject(span, FORMAT_HTTP_HEADERS, req.headers);
 
         res.on('finish', () => {
-            span.setTag(Tags.HTTP_STATUS_CODE, this.statusCode);
+            span.setTag(Tags.HTTP_STATUS_CODE, res.statusCode);
             span.finish();
         });
 

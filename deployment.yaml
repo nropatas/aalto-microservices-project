@@ -57,6 +57,8 @@ spec:
         env:
         - name: PORT
           value: '8080'
+        - name: JAEGER_AGENT_HOST
+          value: jaeger-agent.default.svc.cluster.local
         - name: AUTH_TOKEN_SECRET
           valueFrom:
             secretKeyRef:

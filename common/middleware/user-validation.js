@@ -2,6 +2,8 @@ const _ = require('lodash');
 const axios = require('axios');
 const HTTP = require('http-status');
 
+const TRACE_ID_KEY = 'uber-trace-id';
+
 module.exports = function createUserValidation({ userServiceUrl }) {
     return async function userValidation(req, res, next) {
         if (_.isEmpty(req.get('Authorization'))) {
@@ -16,6 +18,7 @@ module.exports = function createUserValidation({ userServiceUrl }) {
                 url: `${userServiceUrl}/api/auth/verify`,
                 headers: {
                     Authorization: req.get('Authorization'),
+                    [TRACE_ID_KEY]: req.get(TRACE_ID_KEY),
                 },
             });
         } catch (err) {
