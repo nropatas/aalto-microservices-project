@@ -28,6 +28,8 @@ spec:
           value: http://content-service:8080
         - name: SUBSCRIPTION_SERVICE_URL
           value: http://subscription-service:8080
+        - name: JAEGER_AGENT_HOST
+          value: jaeger-agent.default.svc.cluster.local
 ---
 apiVersion: apps/v1
 kind: Deployment
