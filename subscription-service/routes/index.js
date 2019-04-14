@@ -22,6 +22,12 @@ router.post('/api/subscriptions', [
         return;
     }
 
+    const { providerId } = req.body;
+    if (!providerId) {
+        res.status(HTTP.BAD_REQUEST).end();
+        return;
+    }
+
     res.status(HTTP.CREATED).end();
 });
 
