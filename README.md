@@ -55,6 +55,18 @@ A few endpoints have been implemented for testing the operational aspects, so th
 | Request Body | `providerId: <integer>` (required) |
 | Response | `201 Created`<br>`400 Bad Request`<br>`401 Unauthorized` |
 
+**Curl Example**
+
+```
+curl -X POST \
+  http://localhost:8080/api/subscriptions \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJpYXQiOjE1NTUxNjcwMjQsImV4cCI6MTU4NjcyNDYyNH0.hEa5B8js3ymLkFoJl8ln89zkdM3YQsOAc6XjzV4wDPs' \
+  -H 'Content-Type: application/json' \
+  -d '{
+	"providerId": 2
+}'
+```
+
 * `GET /api/subscriptions`
 
 | Type | Format |
@@ -70,6 +82,14 @@ A few endpoints have been implemented for testing the operational aspects, so th
 | - | - |
 | Request Headers | `Authorization: <string>` (required)<br>Example: `Bearer <auth token>` |
 | Response | `200 OK`<br>`Body:`<br>`{`<br>&emsp;`"contents": [`<br>&emsp;&emsp;`{`<br>&emsp;&emsp;&emsp;`"author": <string>,`<br>&emsp;&emsp;&emsp;`"title": <string>,`<br>&emsp;&emsp;&emsp;`"description": <string>,`<br>&emsp;&emsp;&emsp;`"publishedAt": <string>`<br>&emsp;&emsp;`}`<br>&emsp;`]`<br>`}`<br><br>`401 Unauthorized` |
+
+**Curl Example**
+
+```
+curl -X GET \
+  http://localhost:8080/api/contents \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJpYXQiOjE1NTUxNjc2ODksImV4cCI6MTU4NjcyNTI4OX0.31efVwzqqF3FpPdQH_uqlVsnR3KI-6S_FH_QQEZH9n4'
+```
 
 ## Operational Aspects of Microservices
 
@@ -107,9 +127,14 @@ A cluster of Consul servers runs in the cluster. All providers are enabled by de
 kubectl get svc consul-ui
 ```
 
-Note that although the Consul cluster is complete deleted, its data still remain. To complete clean it, remove its `PersistentVolumes` and `PersistenVolumeClaims`.
+Note that although the Consul cluster is complete deleted, its data still remain. To completely clean it, delete its `PersistentVolumes` and `PersistenVolumeClaims`.
 
-Consul Template runs in Content Service as a daemon. It watches changes of key-value pairs on Consul and automatically update the configuration file used by Content Service.
+```
+kubectl get pv
+kubectl get pvc
+```
+
+Consul Template runs in Content Service as a daemon. It watches changes of key-value pairs on Consul and automatically update the configuration file used by Content Service. The Node server automatically restarts when the configuration changes.
 
 Key Example:
 
@@ -129,3 +154,48 @@ The value can be either `true` or `false`.
 4. Helm<br>`brew install kubernetes-helm`
 
 ### Setup Commands
+
+Once all tools have been installed, and Docker and Kubernetes cluster are ready, stay at the project root directory and run:
+
+```
+./build-images.sh
+```
+
+Set up Jaeger infrastructure in Kubernetes cluster. It is provided by the official [Github repository](https://github.com/jaegertracing/jaeger-kubernetes).
+
+```
+kubectl apply -f https://raw.githubusercontent.com/jaegertracing/jaeger-kubernetes/master/all-in-one/jaeger-all-in-one-template.yml
+```
+
+Set up Consul infrastructure. The official [website](https://www.consul.io/docs/platform/k8s/run.html) suggests using `consul-helm`.
+
+```
+git clone https://github.com/hashicorp/consul-helm.git
+cd consul-helm
+git checkout v0.7.0
+```
+
+At this point, you have to open file `consul-helm/values.yaml` and comment out the whole `affinity` setting. Then, continue.
+
+```
+cd ..
+helm install -n consul ./consul-helm
+helm upgrade consul ./consul-helm -f consul.yaml
+```
+
+Now you will have a Consul cluster with three servers. Finally, run all microservices by running:
+
+```
+./apply-k8s.sh
+```
+
+### Usage
+
+The public API can be reached via `http://localhost:8080`.
+
+An endpoint for retrieving a new auth token has not been implemented, so I have created a script for generating ones. The `pwd` has to be `user-service` when running the shell script. The following command generates an auth token for a user whose `id` is `1`.
+
+```
+cd user-service
+AUTH_TOKEN_SECRET=realauthtokensecret ./scripts/token.js encode 1
+```
