@@ -149,7 +149,7 @@ The value can be either `true` or `false`.
 ### Required Tools
 
 1. Docker
-2. Kubernetes (kubectl)
+2. Kubernetes (`kubectl`)
 3. Git
 4. Helm<br>`brew install kubernetes-helm`
 
