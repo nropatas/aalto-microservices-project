@@ -12,6 +12,8 @@ This project is part of a course named Microservice Architectures and Serverless
 
 ### Tracing
 
+### Dynamic Configuration
+
 ## Project Setup
 
 ### Required tools
