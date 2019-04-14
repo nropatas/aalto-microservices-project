@@ -1,5 +1,7 @@
 content-service:
   port: 8083
+  jaeger:
+    agent-host: http://localhost
 
   providers:
     bbc:

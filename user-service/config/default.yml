@@ -1,5 +1,7 @@
 user-service:
   port: 8081
+  jaeger:
+    agent-host: http://localhost
 
   auth-token:
     secret: testsecret

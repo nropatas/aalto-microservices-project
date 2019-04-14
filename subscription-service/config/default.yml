@@ -1,5 +1,7 @@
 subscription-service:
   port: 8082
+  jaeger:
+    agent-host: http://localhost
 
 services:
   user-service:
