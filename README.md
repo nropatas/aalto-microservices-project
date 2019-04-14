@@ -11,3 +11,12 @@ This project is part of a course named Microservice Architectures and Serverless
 ### Secret Management
 
 ### Tracing
+
+## Project Setup
+
+### Required tools
+
+1. Docker
+2. Kubernetes (kubectl)
+3. Git
+4. Helm

@@ -13,6 +13,15 @@ echo "Setting up Kubernetes cluster..."
 # Jaeger for distributed tracing
 kubectl apply -f https://raw.githubusercontent.com/jaegertracing/jaeger-kubernetes/master/all-in-one/jaeger-all-in-one-template.yml
 
+# Consul for dynamic configuration
+git clone https://github.com/hashicorp/consul-helm.git
+cd consul-helm
+git checkout v0.7.0
+# Comment out affinity settings in values.yaml
+cd ..
+helm install -n consul ./consul-helm
+helm upgrade consul ./consul-helm -f consul.yaml
+
 # Microservices
 kubectl apply -f namespace.yaml
 kubectl apply -f secret.yaml
