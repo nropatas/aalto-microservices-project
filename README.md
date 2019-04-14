@@ -8,7 +8,7 @@ This system runs in a Kubernetes cluster and serves as a REST API, which could b
 
 ![System Architecture](images/architecture.png)
 
-The system consists of an API Gateway and three services. The API Gateway exposes public endpoints and proxy incoming requests to corresponding microservices. All services are implemented with Node.js, including the API Gateway to ease customization.
+The system consists of an API Gateway and three services. The API Gateway exposes public endpoints and proxies incoming requests to corresponding microservices. All services are implemented with Node.js, including the API Gateway to ease customization.
 
 ### User Service (Stateful)
 
