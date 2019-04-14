@@ -10,8 +10,6 @@ This system runs in a Kubernetes cluster and serves as a REST API, which could b
 
 The system consists of an API Gateway and three services. The API Gateway exposes public endpoints and proxy incoming requests to corresponding microservices. All services are implemented with Node.js, including the API Gateway to ease customization.
 
-### API Gateway
-
 ### User Service (Stateful)
 
 User Service is mainly responsible for user authentication, and it also provides user information to other services. It has a database which stores user data.
