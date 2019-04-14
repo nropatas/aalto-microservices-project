@@ -8,6 +8,7 @@ const Providers = {
     1: {
         id: 1,
         name: 'BBC News',
+        keyName: 'bbc',
         apiUrl: _.get(providerConfigs, 'bbc.api-url'),
         apiKey: _.get(providerConfigs, 'bbc.api-key'),
         data: [
@@ -28,6 +29,7 @@ const Providers = {
     2: {
         id: 2,
         name: 'Buzzfeed',
+        keyName: 'buzzfeed',
         apiUrl: _.get(providerConfigs, 'buzzfeed.api-url'),
         apiKey: _.get(providerConfigs, 'buzzfeed.api-key'),
         data: [

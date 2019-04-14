@@ -117,9 +117,12 @@ spec:
       - name: content-service
         image: content-service
         imagePullPolicy: Never
+        command: ['./start.sh']
         ports:
         - containerPort: 8080
         env:
+        - name: NODE_ENV
+          value: development
         - name: PORT
           value: '8080'
         - name: USER_SERVICE_URL
@@ -128,6 +131,8 @@ spec:
           value: http://subscription-service:8080
         - name: JAEGER_AGENT_HOST
           value: jaeger-agent.default.svc.cluster.local
+        - name: CONSUL_ADDR
+          value: consul-server.default.svc.cluster.local
         - name: BBC_API_KEY
           valueFrom:
             secretKeyRef:

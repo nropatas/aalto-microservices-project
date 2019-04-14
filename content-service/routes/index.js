@@ -55,6 +55,11 @@ router.get('/api/contents', [
         }
 
         const provider = Providers[providerId];
+
+        if (!config.get(`content-service.providers.${provider.keyName}.enabled`)) {
+            return [];
+        }
+
         console.log(`Req: ${provider.apiUrl}, Key: ${provider.apiKey}`);
         return provider.data;
     });

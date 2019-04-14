@@ -5,9 +5,11 @@ content-service:
 
   providers:
     bbc:
+      enabled: true
       api-url: http://bbc
       api-key: bbctestkey
     buzzfeed:
+      enabled: true
       api-url: http://buzzfeed
       api-key: buzzfeedtestkey
 
