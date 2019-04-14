@@ -153,7 +153,7 @@ The value can be either `true` or `false`.
 3. Git
 4. Helm<br>`brew install kubernetes-helm`
 
-### Setup Commands
+### Setup Steps
 
 Once all tools have been installed, and Docker and Kubernetes cluster are ready, stay at the project root directory and run:
 
