@@ -146,7 +146,7 @@ The value can be either `true` or `false`.
 
 ## Project Setup
 
-### Required tools
+### Required Tools
 
 1. Docker
 2. Kubernetes (kubectl)
